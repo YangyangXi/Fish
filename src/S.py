@@ -31,18 +31,33 @@ def save_to_file(title, info):
 
 
 def main():
-    # Check if file exists and delete it if it does
     filename = './十日终焉.txt'
     if os.path.exists(filename):
         os.remove(filename)
 
+    results = [None] * 1200  # 创建一个列表用于存储结果
+    total_chapters = 1200
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        futures = [executor.submit(fetch_chapter, i) for i in range(1, 713)]
+        futures = {executor.submit(fetch_chapter, i): i for i in range(1, total_chapters + 1)}
+        completed = 0
+
         for future in concurrent.futures.as_completed(futures):
+            i = futures[future]  # 获取章节索引
             title, info = future.result()
             if title and info:
-                print(title)
-                save_to_file(title, info)
+                results[i - 1] = (title, info)  # 按顺序存储结果
+                completed += 1
+                print(f"已完成: {completed}/{total_chapters}")
+
+    for title, info in results:
+        if title and info:
+            print(title)
+            save_to_file(title, info)
+
+if __name__ == "__main__":
+    main()
+
 
 
 if __name__ == "__main__":
