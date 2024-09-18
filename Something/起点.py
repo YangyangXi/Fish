@@ -17,11 +17,6 @@ async def fetch_chapter(session, url):
             if len(info) > 1:
                 info.pop(-2)
             info = '\n'.join(info)
-
-            if "章节内容缺失或章节不存在！请稍后重新尝试！" in info:
-                print(f"跳过章节: 内容缺失")
-                return None
-
             return title, info
     except Exception as e:
         print(f"Error fetching chapter from {url}: {e}")
