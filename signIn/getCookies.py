@@ -9,7 +9,7 @@ def browser_initial():
     进行浏览器初始化
     """
 
-    os.chdir('D:\\Project\\Fish\\signIn')
+    os.chdir(os.path.dirname(__file__))
     browser = webdriver.Chrome()
     log_url = 'https://www.bilibili.com/'
     return log_url, browser

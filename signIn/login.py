@@ -8,7 +8,7 @@ def browser_initial():
     """"
     进行浏览器初始化
     """
-    os.chdir('D:\\Project\\Fish\\signIn')
+    os.chdir(os.path.dirname(os.path.dirname(__file__)))
     browser = webdriver.Chrome()
     goal_url = 'https://www.bilibili.com/'
     # 未携带cookies打开网页
@@ -21,7 +21,8 @@ def log_taobao(goal_url, browser):
     从本地读取cookies并登录目标网页
     """
     # 从本地读取cookies
-    with open(r'D:\Project\Fish\signIn\cookies\bilibili_cookies.txt', 'r', encoding='utf8') as f:
+    cookies_file_path = os.path.join(os.path.dirname(__file__), 'cookies', 'bilibili_cookies.txt')
+    with open(cookies_file_path, 'r', encoding='utf8') as f:
         listCookies = json.loads(f.read())
 
     for cookie in listCookies:
