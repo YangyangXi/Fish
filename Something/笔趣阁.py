@@ -34,7 +34,7 @@ def main():
     filename = './十日终焉.txt'
     if os.path.exists(filename):
         os.remove(filename)
-
+# 因为不知道小说具体会有多少章节，所以我设置了个1200章，可以根据不同小说的章节来设定，大点也没关系
     results = [None] * 1200  # 创建一个列表用于存储结果
     total_chapters = 1200
 
